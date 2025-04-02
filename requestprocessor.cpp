@@ -65,7 +65,7 @@ void process_pow2_request( const vector<string>& request )
 
 void process_uniform_request( const vector<string>& request )
 {
-  if( request.size() < 7 )
+  if( request.size() < 8 )
   {
     cout << "not enough parameters" << endl;
     return;
@@ -78,6 +78,7 @@ void process_uniform_request( const vector<string>& request )
   long n = 0;
   long k_min = 0;
   long k_max = 10;
+  long k_step = 1;
 
   string filename = request[1];
 
@@ -88,10 +89,11 @@ void process_uniform_request( const vector<string>& request )
 
   istringstream(request[5]) >> k_min;
   istringstream(request[6]) >> k_max;
+  istringstream(request[7]) >> k_step;
 
-  for( long k = k_min; k < k_max; ++k )
+  for( long k = k_min; k < k_max; k+=k_step )
   {
-    cout << "k (k_min / k_max) = " << k << " ("  << k_min << " / " << k_max << ")\n";
+    cout << "k (k_min,k_step,k_max) = " << k << " ("  << k_min << "," << k_step << "," << k_max << ")\n";
     hprr phi = hprr(2)*hprHelpers::pi()*hprr(k) / hprr(n);
     stringstream astr;
     astr << "\"2*Pi*" << k << "/" << n << "\"";
