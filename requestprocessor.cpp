@@ -91,6 +91,7 @@ void process_uniform_request( const vector<string>& request )
 
   for( long k = k_min; k < k_max; ++k )
   {
+    cout << "k (k_min / k_max) = " << k << " ("  << k_min << " / " << k_max << ")\n";
     hprr phi = hprr(2)*hprHelpers::pi()*hprr(k) / hprr(n);
     stringstream astr;
     astr << "\"2*Pi*" << k << "/" << n << "\"";
@@ -146,4 +147,5 @@ int process_request( const vector<string>& request )
   else
     cout << "unsupported request type:" << request[0] << endl;
 
+  return 0;
 }

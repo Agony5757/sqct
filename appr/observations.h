@@ -46,8 +46,8 @@ struct observations
   size_t factor_calls;
   size_t norm_equation_calls;
 
+  
   static std::string title();
-
 };
 
 std::ostream& operator<< ( std::ostream& out, const observations& o );

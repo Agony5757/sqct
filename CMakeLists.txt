@@ -9,7 +9,7 @@ INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR} )
 find_package(OpenMP REQUIRED) # Find the package
 #target_link_libraries(${PROJECT_NAME} ${OpenMP_CXX_LIBRARIES}) # Link against it for C++
 
-set( CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG ")
+#set( CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG ")
 #set( CMAKE_EXE_LINKER_FLAGS "-static-libstdc++ -static-libgcc -static")
 #set(Boost_USE_STATIC_LIBS ON)
 

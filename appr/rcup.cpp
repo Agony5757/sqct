@@ -187,6 +187,10 @@ rcup::rcup(long n, const hprr &phi, const hprr &delta)
     double t = (I.second - I.first) * 2.0;
     I.first = I.second;
     I.second = min(I.first + t,dl);
+
+    if (I.second <= I.first) {
+      break;
+    }
   }
 
   R.second.k = 0;

@@ -105,12 +105,14 @@ template< int TMod>
 resring<TMod> &resring<TMod>::operator /=(const resring<TMod> &e)
 {
     set( v /= e.v );
+    return *this;
 }
 
 template< int TMod>
 resring<TMod> &resring<TMod>::operator <<=(int e)
 {
     set( v << e );
+    return *this;
 }
 
 template< int TMod>
@@ -123,6 +125,7 @@ template< int TMod>
 resring<TMod> &resring<TMod>::operator >>=(int e)
 {
     v >>= e;
+    return *this;
 }
 template< int TMod>
 typename resring<TMod>::int_type resring<TMod>::operator %(int e)

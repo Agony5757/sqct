@@ -132,7 +132,9 @@ std::complex<double> toComplex( const mpz_arr4& val, int de)
 
 std::complex<double> toComplex( const rring8_arr4& val, int de)
 {
-    assert( !"Not implemented: operation is meaningless" );
+    //assert( !"Not implemented: operation is meaningless" );
+    throw std::runtime_error("Not implemented: operation is meaningless");
+    return std::complex<double>(0,0);
 }
 
 std::complex<mpclass> toHprComplex( const mpz_arr4& val, int de)
@@ -176,7 +178,9 @@ std::complex<mpclass> toHprComplex( const long_arr4& val, int de)
 
 std::complex<mpclass> toHprComplex( const rring8_arr4& val, int de)
 {
-    assert( !"Not implemented: operation is meaningless" );
+    //assert( !"Not implemented: operation is meaningless" );
+    throw std::runtime_error("Not implemented: operation is meaningless");
+    return std::complex<double>(0,0);
 }
 
 int sde( int denom_exponent, int gde )
@@ -623,6 +627,7 @@ int ring_int<T>::isGde2(ring_int<T>::pr_type a, ring_int<T>::pr_type b)
 {
     if( b % 2 == 0 && a % 2 == 0 && (a >> 1) % 2 == 1 )
         return true;
+    return false;
 }
 
 template < class T >
@@ -804,6 +809,8 @@ bool ring_int_real<T>::non_negative() const
   {
     return (2*base::v[1]*base::v[1] - base::v[0]*base::v[0]) >= 0;
   }
+
+  return false;
 }
 
 template<>

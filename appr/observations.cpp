@@ -29,10 +29,13 @@ std::ostream &operator <<(std::ostream &out, const observations &o)
   out << std::fixed;
   out.precision(30);
 
-  out << o.n << "," <<
+  out << o.n << ",";
+  out <<
       to_ld(o.phi) << "," <<
-      to_ld(o.delta) << "," <<
+      to_ld(o.delta) << ",";
 
+  // there are some errors occurred here.
+  out <<
       o.find_halves_real_time << "," <<
       o.find_halves_cpu_time << "," <<
       o.merge_halves_time << "," <<
@@ -45,6 +48,8 @@ std::ostream &operator <<(std::ostream &out, const observations &o)
       o.tuples_processed << "," <<
       o.factor_calls << "," <<
       o.norm_equation_calls;
+
+  return out;
 }
 
 

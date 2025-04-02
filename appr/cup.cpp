@@ -32,9 +32,10 @@ using namespace std;
 cup::cup(const hprr &phi, int max_layer, int max_lookup)  :
   R(max_layer)
 {
-  const bfs_results& br = bfs_results::instance();
+  const bfs_results& br = bfs_results::instance();  
 
-  auto r = br.cup(phi,max_lookup);
+  auto r = br.cup(phi,max_lookup);  
+
   const int mc = bfs_results::max_cost;
   int bnd = std::min(max_layer,std::min(max_lookup,mc));
   for( int i = 0; i < bnd ; ++i )
@@ -125,6 +126,9 @@ void write_line( int t_count, const cup_params& params, ostream& ofs, const type
      ofs << ciruit_str_empty() << ",";
   else
      ofs << ciruit_str(res.second) << ",";
+  // ofs << "}\n";
+  // ofs.flush();
+  // no longer output obs here. We want only circuit_str
   ofs << obs << "}" << endl;
 }
 
@@ -135,7 +139,11 @@ cup::cup(const cup_params &params)  :
   int max_layer = params.max_layer;
   int max_lookup = params.max_lookup;
 
+  cout << "cup: " << "(phi = " << phi << ", max_layer = " 
+       << max_layer << ", max_loopup = " << max_lookup << ")" << endl;
+
   const bfs_results& br = bfs_results::instance();
+  //cout << "bfs_results::instance finished.\n";
 
   ofstream ofs(params.results_file,ios_base::app);
 
@@ -145,6 +153,8 @@ cup::cup(const cup_params &params)  :
   }
 
   auto r = br.cup(phi,max_lookup);
+  //cout << "br.cup finished.\n";
+
   const int mc = bfs_results::max_cost;
   int bnd = std::min(max_layer,std::min(max_lookup,mc));
 
@@ -157,6 +167,9 @@ cup::cup(const cup_params &params)  :
       R[i].first = trace_dist(Rz(phi),matrix2x2<mpz_class>(R[i].second));
       R[i].second.to_canonical_form();
     }
+    // cout << "output" << endl;
+    // write_line(i,params,cout,R[i],empty);
+    // cout << "output to file" << endl;
     write_line(i,params,ofs,R[i],empty);
   }
 
@@ -180,5 +193,6 @@ cup::cup(const cup_params &params)  :
       cout << "something went wrong:" << i << "," << phi << "," << params.angle_str <<endl;
     }
   }
+  //cout << "cup.ctor finished.\n";
 
 }

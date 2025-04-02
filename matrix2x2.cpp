@@ -297,6 +297,8 @@ int matrix2x2<TInt>::det_power() const
     if( xc == d[1][1]) return i;
     xc.mul_eq_w();
   }
+  throw std::runtime_error("Cannot reach here.");
+  return -1;
 }
 
 template < class TInt >
