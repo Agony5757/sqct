@@ -1,0 +1,1 @@
+sudo apt install boost gmp gmpxx mpfr 
