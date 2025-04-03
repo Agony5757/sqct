@@ -80,10 +80,14 @@ SUBMITTED_COUNT=0
 SKIPPED_COUNT=0
 ERROR_COUNT=0
 
-for ((id=1; id<=n; id++)); do
+for ((id=1; id<=n; id+=2)); do
     # Break if we've submitted enough jobs
     if [ "$SUBMITTED_COUNT" -ge "$MAX_JOBS" ]; then
         break
+    fi
+
+    if (( id % 2 == 0 )); then
+        continue
     fi
     
     # Check if output file exists (silently skip if it does)
