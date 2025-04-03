@@ -143,16 +143,13 @@ if __name__ == "__main__":
 
     # --- Copy executable ---
     print(f"Copying executable from {SOURCE_EXECUTABLE_PATH} to {EXECUTABLE_PATH}")
-    if SOURCE_EXECUTABLE_PATH.is_file():
+    if (not EXECUTABLE_PATH.exists()) and SOURCE_EXECUTABLE_PATH.is_file():
         try:
             shutil.copy2(SOURCE_EXECUTABLE_PATH, EXECUTABLE_PATH)
             EXECUTABLE_PATH.chmod(0o755)  # Ensure it's executable (read/write/execute for user, read/execute for group/others)
         except Exception as e:
             print(f"Error copying or setting permissions for executable: {e}", file=sys.stderr)
             sys.exit(1)
-    else:
-        print(f"Error: Source executable '{SOURCE_EXECUTABLE_PATH}' not found.", file=sys.stderr)
-        sys.exit(1)
 
     # --- Sanity Checks ---
     if not EXECUTABLE_PATH.is_file() or not os.access(EXECUTABLE_PATH, os.X_OK):
@@ -247,7 +244,7 @@ if __name__ == "__main__":
         job_name = f"sqct_{N}_{kmin}_{kmax_actual}"
 
         # Create config file content
-        config_content = f"""# Request approximation of R_z rotations by angles of the form \\\$2\pi k/n for k in the interval [k1,k2)
+        config_content = f"""# Request approximation of R_z rotations by angles of the form $2\\pi k/n$ for k in the interval [k1,k2)
 UNIFORM
 #Filename with approximation results
 {output_file_rel}
