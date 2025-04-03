@@ -13,8 +13,10 @@ ACCOUNT="sqct"                           # !!! REPLACE with your project/account
 WALLTIME_PER_JOB="4800:00:00"            # Max walltime for EACH job (HH:MM:SS)
 
 # 在脚本开头添加（配置部分）
-TRACKING_FILE="completed_ids.txt"  # 记录已完成id的文件
-touch "$TRACKING_FILE"            # 确保文件存在
+TRACKING_FILE_COMPLETED="completed_ids.txt"  # 记录已完成id的文件
+touch "$TRACKING_FILE_COMPLETED"            # 确保文件存在
+TRACKING_FILE_STARTED="started_ids.txt"  # 记录已完成id的文件
+touch "$TRACKING_FILE_STARTED"            # 确保文件存在
 
 # --- Copy BFS layer files ---
 echo "Checking and copying BFS layer files..."
@@ -86,7 +88,7 @@ for ((id=1; id<=n; id++)); do
     
     # Check if output file exists (silently skip if it does)
     OUTPUT_FILE="$OUTPUT_DIR/uni_${n}_${id}.txt"
-    if grep -q "^${id}$" "$TRACKING_FILE"; then
+    if grep -q "^${n}_${id}$" "$TRACKING_FILE_STARTED"; then
         ((SKIPPED_COUNT++))
         continue
     fi
@@ -132,6 +134,7 @@ echo "Running on host: \$(hostname)"
 echo "Working directory: \$PBS_O_WORKDIR"
 echo "Processing config file: ${CONFIG_FILE}"
 echo "Expecting output file: ${OUTPUT_FILE}"
+echo "${n}_${id}" >> "\$PBS_O_WORKDIR/$TRACKING_FILE_STARTED"
 
 cd \$PBS_O_WORKDIR || exit 1
 export OMP_NUM_THREADS=1
@@ -139,7 +142,7 @@ ${EXECUTABLE} -G "${CONFIG_FILE}"
 EXIT_CODE=\$?
 
 echo "Execution finished with exit code: \$EXIT_CODE"
-echo "$id" >> "\$PBS_O_WORKDIR/$TRACKING_FILE"
+echo "${n}_${id}" >> "\$PBS_O_WORKDIR/$TRACKING_FILE_COMPLETED"
 exit \$EXIT_CODE
 EOF
     
