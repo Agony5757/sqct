@@ -16,3 +16,5 @@ build/
 run/configs/
 run/logs/
 run/out/
+run/completed_ids.txt
+run/started_ids.txt
