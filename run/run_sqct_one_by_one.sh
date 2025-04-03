@@ -1,15 +1,26 @@
 #!/bin/bash
 
 # --- Configuration ---
-m=21                                      # Set m here (n = 2^m)
+m=5                                      # Set m here (n = 2^m)
 n=$((2**m))                              # Calculate n
-MAX_JOBS=1000                             # Maximum number of jobs to submit
+MAX_JOBS=100                             # Maximum number of jobs to submit
 CONFIG_DIR="configs"                     # Directory for temporary config files
 EXECUTABLE="./sqct"                      # Path to your executable
+SOURCE_EXECUTABLE="../build/sqct"        # Source path of the executable
 LOG_DIR="logs"                           # Directory to store PBS log files
 OUTPUT_DIR="out"                         # Directory for output files
 ACCOUNT="sqct"                           # !!! REPLACE with your project/account string !!!
 WALLTIME_PER_JOB="4800:00:00"            # Max walltime for EACH job (HH:MM:SS)
+
+# --- Copy executable ---
+echo "Copying executable from $SOURCE_EXECUTABLE to $EXECUTABLE"
+if [ -f "$SOURCE_EXECUTABLE" ]; then
+    cp "$SOURCE_EXECUTABLE" "$EXECUTABLE"
+    chmod +x "$EXECUTABLE"  # Ensure it's executable
+else
+    echo "Error: Source executable '$SOURCE_EXECUTABLE' not found."
+    exit 1
+fi
 
 # --- Sanity Checks ---
 if [ ! -x "$EXECUTABLE" ]; then
