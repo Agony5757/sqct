@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # --- Configuration ---
-m=5                                      # Set m here (n = 2^m)
+m=21                                      # Set m here (n = 2^m)
 n=$((2**m))                              # Calculate n
-MAX_JOBS=100                             # Maximum number of jobs to submit
+MAX_JOBS=20                             # Maximum number of jobs to submit
 CONFIG_DIR="configs"                     # Directory for temporary config files
 EXECUTABLE="./sqct"                      # Path to your executable
 SOURCE_EXECUTABLE="../build/sqct"        # Source path of the executable
