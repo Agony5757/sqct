@@ -98,6 +98,8 @@ for ((id=1; id<maxK; id+=2)); do
         continue
     fi
     
+    echo "${n}_${id}" >> "$PBS_O_WORKDIR/$TRACKING_FILE_STARTED"
+    
     # Create config file
     CONFIG_FILE="$CONFIG_DIR/config_${n}_${id}.txt"
     cat > "$CONFIG_FILE" <<EOF
@@ -139,7 +141,6 @@ echo "Running on host: \$(hostname)"
 echo "Working directory: \$PBS_O_WORKDIR"
 echo "Processing config file: ${CONFIG_FILE}"
 echo "Expecting output file: ${OUTPUT_FILE}"
-echo "${n}_${id}" >> "\$PBS_O_WORKDIR/$TRACKING_FILE_STARTED"
 
 cd \$PBS_O_WORKDIR || exit 1
 export OMP_NUM_THREADS=1
