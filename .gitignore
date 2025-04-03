@@ -18,3 +18,5 @@ run/logs/
 run/out/
 run/completed_ids.txt
 run/started_ids.txt
+*.ind.bin
+*.uni.bin
