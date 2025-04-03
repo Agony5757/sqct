@@ -16,7 +16,7 @@ WALLTIME_PER_JOB="4800:00:00"            # Max walltime for EACH job (HH:MM:SS)
 echo "Checking and copying BFS layer files..."
 for i in {0..18}; do
     # Check and copy .ind.bin files
-    SRC_IND="../bfs-layer-${i}.ind.bin"
+    SRC_IND="../build/bfs-layer-${i}.ind.bin"
     DST_IND="./bfs-layer-${i}.ind.bin"
     if [ -f "$SRC_IND" ] && [ ! -f "$DST_IND" ]; then
         echo "Copying $SRC_IND to $DST_IND"
@@ -24,7 +24,7 @@ for i in {0..18}; do
     fi
     
     # Check and copy .uni.bin files
-    SRC_UNI="../bfs-layer-${i}.uni.bin"
+    SRC_UNI="../build/bfs-layer-${i}.uni.bin"
     DST_UNI="./bfs-layer-${i}.uni.bin"
     if [ -f "$SRC_UNI" ] && [ ! -f "$DST_UNI" ]; then
         echo "Copying $SRC_UNI to $DST_UNI"
