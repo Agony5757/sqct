@@ -98,7 +98,7 @@ for ((id=1; id<maxK; id+=2)); do
         continue
     fi
     
-    echo "${n}_${id}" >> "$PBS_O_WORKDIR/$TRACKING_FILE_STARTED"
+    echo "${n}_${id}" >> "$TRACKING_FILE_STARTED"
     
     # Create config file
     CONFIG_FILE="$CONFIG_DIR/config_${n}_${id}.txt"
