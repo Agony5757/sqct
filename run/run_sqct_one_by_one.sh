@@ -12,6 +12,10 @@ OUTPUT_DIR="out"                         # Directory for output files
 ACCOUNT="sqct"                           # !!! REPLACE with your project/account string !!!
 WALLTIME_PER_JOB="4800:00:00"            # Max walltime for EACH job (HH:MM:SS)
 
+# 在脚本开头添加（配置部分）
+TRACKING_FILE="completed_ids.txt"  # 记录已完成id的文件
+touch "$TRACKING_FILE"            # 确保文件存在
+
 # --- Copy BFS layer files ---
 echo "Checking and copying BFS layer files..."
 for i in {0..18}; do
@@ -82,7 +86,7 @@ for ((id=1; id<=n; id++)); do
     
     # Check if output file exists (silently skip if it does)
     OUTPUT_FILE="$OUTPUT_DIR/uni_${n}_${id}.txt"
-    if [ -f "$OUTPUT_FILE" ]; then
+    if grep -q "^${id}$" "$TRACKING_FILE"; then
         ((SKIPPED_COUNT++))
         continue
     fi
@@ -135,6 +139,7 @@ ${EXECUTABLE} -G "${CONFIG_FILE}"
 EXIT_CODE=\$?
 
 echo "Execution finished with exit code: \$EXIT_CODE"
+echo "$id" >> "\$PBS_O_WORKDIR/$TRACKING_FILE"
 exit \$EXIT_CODE
 EOF
     
@@ -147,6 +152,7 @@ EOF
         ((ERROR_COUNT++))
         echo "ERROR: qsub failed for id=$id (exit code $QSUB_EXIT_CODE)"
     fi
+    sleep 0.5
 done
 
 echo "-------------------------------------"
