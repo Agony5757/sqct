@@ -84,6 +84,8 @@ $n
 $id
 #k2
 $((id+1))
+#kstep
+2
 EOF
     
     # Submit job
